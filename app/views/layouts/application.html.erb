@@ -7,8 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p><%= link_to 'Add a link', new_link_path %></p>
-<%= yield %>
+  <%= flash[:alert] %>
+  <%= flash[:notice] %>
+
+  <p><%= link_to 'Home', links_path %> | <%= link_to 'Add link', new_link_path %></p>
+  <%= yield %>
 
 </body>
 </html>

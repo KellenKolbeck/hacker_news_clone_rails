@@ -1,6 +1,9 @@
 <ol>
   <% @links.each do |link| %>
-    <li><%= link.title %> <small>(<%= link.link %>) <br>
-      <%= link.upvotes %> by <%= link.posted_by %> | <%= link.comments.length %> comments</small></li>
+    <li><a href="<%= link.link %>"><%= link.title %></a> <small><br>
+      <%= link.upvotes %> upvotes | posted by <%= link.posted_by %> | <%= link_to "#{link.comments.length} comments", link_path(link) %>
+      | <%= link_to 'edit', edit_link_path(link) %>
+      | <%= link_to 'delete', link_path(link), :data=> {:confirm => "You're sure?", :method => "delete"}%></small>
+    </li>
   <% end %>
 </ol>
