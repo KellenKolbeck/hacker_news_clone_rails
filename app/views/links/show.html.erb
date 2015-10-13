@@ -1,0 +1,27 @@
+<h3><%= link_to '▲', upvote_link_path(@link), :data => {:method => "update"}, :style => 'text-decoration: none; font-size: 20px;' %> &nbsp;  <big><a href="<%= @link.link %>"><%= @link.title %></a></big> <small> &nbsp; <em> <%= time_ago_in_words(@link.created_at) %> ago </em> <br>
+  <%= link_to '▼', downvote_link_path(@link), :data => {:method => "update"}, :style => 'text-decoration: none; font-size: 20px;' %> &nbsp;  <%= @link.upvotes %> upvotes | <%= @link.downvotes %> downvotes | posted by <%= @link.posted_by %>
+</h3>
+
+<%= render('comments/form', :object => @link) %>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li><%= comment.comment_body %> <small><%= comment.posted_by %></small>
+      <%= link_to 'reply', new_comment_path(:comment => comment, :link => @link) %>
+      <% if comment.comments.any? %>
+        <ul>
+          <% comment.comments.each do |reply| %>
+            <li><%= reply.comment_body %> <small><%= reply.posted_by %></small>
+            <%= link_to 'reply', new_comment_path(:comment => reply) %></li>
+            <ul>
+              <% reply.comments.each do |second_reply| %>
+                <li><%= second_reply.comment_body %> <small><%= second_reply.posted_by %></small>
+                <%= link_to 'reply', new_comment_path(:comment => second_reply) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

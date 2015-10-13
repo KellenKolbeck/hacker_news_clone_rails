@@ -1,10 +1,12 @@
 class LinksController < ApplicationController
   def index
-    @links = Link.all
+    @links = Link.all.ranking
   end
+
   def new
     @link = Link.new
   end
+
   def create
     @link = Link.new(link_params)
     if @link.save
@@ -18,9 +20,11 @@ class LinksController < ApplicationController
       redirect_to new_link_path
     end
   end
+
   def edit
     @link = Link.find(params[:id])
   end
+
   def update
     @link = Link.find(params[:id])
     if @link.update(link_params)
@@ -34,15 +38,32 @@ class LinksController < ApplicationController
       redirect_to edit_link_path(@link)
     end
   end
+
   def show
     @link = Link.find(params[:id])
+    @comment = Comment.new
+    @comments = @link.comments
   end
+
   def destroy
     @link = Link.find(params[:id])
     @link.destroy
     redirect_to links_path
   end
 
+  def upvote
+    @link = Link.find(params[:id])
+    @link.upvotes += 1
+    @link.save
+    redirect_to links_path
+  end
+
+  def downvote
+    @link = Link.find(params[:id])
+    @link.downvotes += 1
+    @link.save
+    redirect_to links_path
+  end
 
   private
   def link_params

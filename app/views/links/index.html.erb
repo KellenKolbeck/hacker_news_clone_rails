@@ -1,7 +1,7 @@
 <ol>
   <% @links.each do |link| %>
-    <li><a href="<%= link.link %>"><%= link.title %></a> <small><br>
-      <%= link.upvotes %> upvotes | posted by <%= link.posted_by %> | <%= link_to "#{link.comments.length} comments", link_path(link) %>
+    <li><%= link_to '▲', upvote_link_path(link), :data => {:method => "update"}, :style => 'text-decoration: none; font-size: 10px;' %> &nbsp;  <big><a href="<%= link.link %>"><%= link.title %></a></big> <small> &nbsp; <em> <%= time_ago_in_words(link.created_at) %> ago </em> <br>
+      <%= link_to '▼', downvote_link_path(link), :data => {:method => "update"}, :style => 'text-decoration: none; font-size: 10px;' %> &nbsp;  <%= link.upvotes %> upvotes | <%= link.downvotes %> downvotes | posted by <%= link.posted_by %> | <%= link_to "#{link.comments.length} comments", link_path(link) %>
       | <%= link_to 'edit', edit_link_path(link) %>
       | <%= link_to 'delete', link_path(link), :data=> {:confirm => "You're sure?", :method => "delete"}%></small>
     </li>

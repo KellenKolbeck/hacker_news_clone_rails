@@ -1,0 +1,9 @@
+<%= form_for [object, @comment] do |f| %>
+  <input type="hidden" id="link" value="<%= @link %>">
+  <%= f.label :comment_body %>
+  <%= f.text_field :comment_body %>
+  <%= f.label :posted_by %>
+  <%= f.text_field :posted_by %>
+  <%= f.submit %>
+
+<% end %>
