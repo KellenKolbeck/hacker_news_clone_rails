@@ -1,0 +1,6 @@
+<ol>
+  <% @links.each do |link| %>
+    <li><%= link.title %> <small>(<%= link.link %>) <br>
+      <%= link.upvotes %> by <%= link.posted_by %> | <%= link.comments.length %> comments</small></li>
+  <% end %>
+</ol>
